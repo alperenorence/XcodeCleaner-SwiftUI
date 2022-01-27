@@ -140,9 +140,16 @@ struct ResultsTableView: View {
 
 struct MainWindowView: View {
   @ObservedObject var data = AppData()
-  
-  func onAppear(){
-  }
+    
+    init() {
+        if data.selectedDeveloperPath != nil && data.analyzeAtStart {
+            withAnimation {
+                self.data.startAnalyze(isInit: true)
+            }
+        }
+    }
+    
+    // func onAppear() {}
   
   var dataView: some View {
     VStack(alignment: .leading, spacing: 0) {
@@ -154,8 +161,7 @@ struct MainWindowView: View {
       
         Spacer()
       }
-      .padding(.horizontal)
-      .padding(.bottom)
+      .padding()
     
       Divider()
     
@@ -219,7 +225,7 @@ struct MainWindowView: View {
         dataView
       }
     }
-    .onAppear(perform: self.onAppear)
+    //.onAppear(perform: self.onAppear)
     .environmentObject(data)
     .navigationViewStyle(DefaultNavigationViewStyle())
   }

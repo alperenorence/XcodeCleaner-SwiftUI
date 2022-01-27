@@ -19,6 +19,8 @@
 "analysis.derivedData.summary" = "项目的一些索引及缓存文件，可以安全删除，删除后再次打开项目时会自动重新生成。";
 "analysis.previews.summary" = "SwiftUI 预览的模拟器和数据，建议使用 `xcrun simctl --set previews delete unavailable` 自动清理。";
 "analysis.simulatorCaches.summary" = "模拟器运行时的缓存文件";
+"welcome.button_analyze_at_start" = "Analyze at Start";
+"welcome.button_quit" = "Quit";
 
 "xcode_not_found_title" = "未能在指定目录中找到 Xcode";
 "xcode_not_found_body" = "未能在指定目录中找到 Xcode，Developer 目录一般在 ~/Library/Developer 目录下";

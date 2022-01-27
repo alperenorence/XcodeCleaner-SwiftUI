@@ -49,6 +49,12 @@ struct WelcomeView: View {
           .modifier(ButtonModifier())
           .frame(minHeight: 40, alignment: .center)
           .onTapGesture(perform: onAnalyze)
+          
+        Text("welcome.button_quit")
+          .foregroundColor(.pink)
+          .onTapGesture {
+              NSApplication.shared.terminate(nil)
+          }
       }
     }.frame(maxWidth: .infinity, minHeight: 140)
   }
@@ -65,6 +71,8 @@ struct WelcomeView: View {
           Text("Selected \(appData.selectedDeveloperPath!)")
             .foregroundColor(.secondary)
             .font(.caption)
+            
+            Toggle("welcome.button_analyze_at_start", isOn: $appData.analyzeAtStart)
           
           Text("welcome.button_change_location")
             .foregroundColor(.pink)
@@ -73,6 +81,13 @@ struct WelcomeView: View {
         .onTapGesture(perform: choseDeveloperPath)
         .padding(.top, 20)
       }
+        
+      Text("welcome.button_quit")
+        .foregroundColor(.pink)
+        .padding(.top, 2)
+        .onTapGesture {
+            NSApplication.shared.terminate(nil)
+        }
     }
     .frame(height: 140)
   }

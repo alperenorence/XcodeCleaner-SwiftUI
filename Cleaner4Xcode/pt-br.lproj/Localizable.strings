@@ -21,6 +21,8 @@
 "welcome.button_analyze" = "Analizar";
 "welcome.button_analyze_again" = "Tentar Novamente";
 "welcome.button_change_location" = "Mudar pasta Developer";
+"welcome.button_analyze_at_start" = "Analyze at Start";
+"welcome.button_quit" = "Quit";
 
 "xcode_not_found_title" = "Xcode não encontrado";
 "xcode_not_found_body" = "Nenhuma instalação do Xcode encontrada na pasta Developer selecionada, normalmente em ~/Library/Developer.";

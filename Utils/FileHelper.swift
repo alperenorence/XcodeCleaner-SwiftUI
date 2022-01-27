@@ -40,10 +40,10 @@ class FileHelper {
     return FileManager.default.fileExists(atPath: xcodePath, isDirectory: &isDirectory) && isDirectory.boolValue
   }
   
-  func authorize(_ path: String?, callback: @escaping (String) -> Void){
+    func authorize(_ path: String?, isInit: Bool, callback: @escaping (String, Bool) -> Void){
     if let path = path, let bookmarkData = UserDefaults.standard.object(forKey: bookmarkKey(path)){
       if self.resolveBookmark(data: bookmarkData as! Data){
-        callback(path)
+        callback(path, isInit)
         return
       }
     }
@@ -64,7 +64,7 @@ class FileHelper {
           let bookmarkData = try url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
           UserDefaults.standard.setValue(bookmarkData, forKey: bookmarkKey(url: url))
           _ = self.resolveBookmark(data: bookmarkData)
-          callback(url.path)
+          callback(url.path, isInit)
         } catch {
           alert(error.localizedDescription)
         }

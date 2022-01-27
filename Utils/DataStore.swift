@@ -168,6 +168,11 @@ class AppData: ObservableObject {
   
   @Published var isAnalyzed: Bool = false
   @Published var isAnalyzing: Bool = false
+  @Published var analyzeAtStart: Bool = true {
+      didSet {
+          UserDefaults.standard.set(self.analyzeAtStart, forKey: "analyzeAtStart")
+      }
+  }
 
   @Published var lastError: AppError?
   
@@ -210,26 +215,30 @@ class AppData: ObservableObject {
     if let path = UserDefaults.standard.string(forKey: "selectedDeveloperPath") {
       self.selectedDeveloperPath = path
     }
+    
+    if UserDefaults.standard.object(forKey: "analyzeAtStart") != nil {
+        self.analyzeAtStart = UserDefaults.standard.bool(forKey: "analyzeAtStart")
+    }
   }
 
-  func startAnalyze() {
+  func startAnalyze(isInit: Bool = false) {
     let fh = FileHelper.standard
     
     if let path = selectedDeveloperPath {
-      fh.authorize(path, callback: self.authorized)
+      fh.authorize(path, isInit: isInit, callback: self.authorized)
       return
     }
     
     let defaultPath = fh.getDefaultXcodePath()
-    self.chooseLocation(defaultPath: defaultPath)
+    self.chooseLocation(defaultPath: defaultPath, isInit: isInit)
   }
   
-  func chooseLocation(defaultPath: String? = nil) {
+  func chooseLocation(defaultPath: String? = nil, isInit: Bool = false) {
     let fh = FileHelper.standard
-    fh.authorize(defaultPath, callback: self.authorized)
+      fh.authorize(defaultPath, isInit: isInit, callback: self.authorized)
   }
   
-  private func authorized(at authorizedPath: String) {
+  private func authorized(at authorizedPath: String, isInit: Bool) {
     let fh = FileHelper.standard
     
     if !fh.validateDeveloperPath(path: authorizedPath) {
@@ -239,10 +248,10 @@ class AppData: ObservableObject {
     
     UserDefaults.standard.set(authorizedPath, forKey: "selectedDeveloperPath")
     self.selectedDeveloperPath = authorizedPath
-    self.analyze()
+    self.analyze(isInit: isInit)
   }
 
-  private func analyze() {
+    private func analyze(isInit: Bool) {
     isAnalyzed = false
     isAnalyzing = true
 
@@ -261,7 +270,7 @@ class AppData: ObservableObject {
         analysis.items = []
         
         do {
-          try analyzeGroup(analysis: analysis, developerPath: fullPath)
+          try analyzeGroup(analysis: analysis, developerPath: fullPath, isInit: isInit)
         } catch let error {
           self.lastError = .analyzeError(error.localizedDescription)
         }
@@ -269,7 +278,7 @@ class AppData: ObservableObject {
     }
   }
   
-  func analyzeGroup(analysis: Analysis, developerPath path: String, depth: Int = 0) throws {
+  func analyzeGroup(analysis: Analysis, developerPath path: String, depth: Int = 0, isInit: Bool) throws {
     let fm = FileHelper.standard
     var subDirectories = [String]()
     
@@ -385,7 +394,7 @@ class AppData: ObservableObject {
         
         if self.analyzedCount == self.totalCount {
           self.isAnalyzing = false
-          self.isAnalyzed = true
+          self.isAnalyzed = !isInit
         }
       }
     }

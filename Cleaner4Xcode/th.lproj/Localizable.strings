@@ -18,6 +18,8 @@
 "welcome.button_analyze" = "วิเคราะห์";
 "welcome.button_analyze_again" = "ลองอีกครั้ง";
 "welcome.button_change_location" = "เลือกโฟลเดอร์ Developer ใหม่";
+"welcome.button_analyze_at_start" = "Analyze at Start";
+"welcome.button_quit" = "Quit";
 
 "xcode_not_found_title" = "ไม่พบ Xcode";
 "xcode_not_found_body" = "ไม่พบการติดตั้ง Xcode ในโฟลเดอร์ Developer ที่เลือก ตามปรกติแล้ว ควรอยู่ที่ ~/Library/Developer";

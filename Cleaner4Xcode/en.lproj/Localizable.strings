@@ -20,6 +20,8 @@
 "welcome.button_analyze" = "Analyze";
 "welcome.button_analyze_again" = "Try Again";
 "welcome.button_change_location" = "Change Developer Location";
+"welcome.button_analyze_at_start" = "Analyze at Start";
+"welcome.button_quit" = "Quit";
 
 "xcode_not_found_title" = "Xcode not found";
 "xcode_not_found_body" = "No Xcode installation found in selected Developer directory, it's usually at ~/Library/Developer.";
